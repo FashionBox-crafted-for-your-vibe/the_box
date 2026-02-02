@@ -1,129 +1,223 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>THE BOX - Web Series</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>THE BOX — Official</title>
+  <meta name="description" content="Official page for THE BOX — a mystery thriller." />
+
+  <!-- Open Graph (social preview) -->
+  <meta property="og:title" content="THE BOX — Official" />
+  <meta property="og:description" content="Something strange is inside..." />
+  <meta property="og:image" content="assets/images/poster.jpg" />
+  <meta property="og:type" content="website" />
+
   <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom, #0d0d0d, #1a1a1a);
-      color: #f0f0f0;
+    :root{
+      --bg:#0b0b0b;
+      --accent:#f5b233;
+      --muted:rgba(255,255,255,0.85);
+      --muted-weak:rgba(255,255,255,0.6);
+      --max-width:1200px;
+      --page-padding:20px;
+      --logo-size:72px;
     }
-    header {
-      display: flex;
-      align-items: center;
-      padding: 10px 20px;
-      background-color: #111;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+
+    /* Basic reset */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(180deg,#070707 0%, #0f0f0f 100%);
+      color:#fff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.4;
+      -webkit-text-size-adjust:100%;
+      -ms-text-size-adjust:100%;
     }
-    header img.logo {
-      height: 60px;
-      margin-right: 20px;
+
+    /* Top-left logo */
+    .logo-link{
+      position:fixed;
+      top:16px;
+      left:16px;
+      z-index:60;
+      display:inline-block;
+      border-radius:8px;
+      overflow:hidden;
+      background:rgba(0,0,0,0.25);
+      padding:6px;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      transition: transform 150ms ease;
     }
-    nav a {
-      color: #f0f0f0;
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: color 0.3s;
+    .logo-link:focus,
+    .logo-link:hover{ transform: translateY(-2px); outline: none; }
+    .logo-img{
+      display:block;
+      width:var(--logo-size);
+      height:auto;
+      max-height:72px;
+      object-fit:contain;
+      filter: drop-shadow(0 6px 18px rgba(0,0,0,0.6));
+      background: transparent;
     }
-    nav a:hover {
-      color: #ffcc00;
+
+    /* Page wrapper */
+    .page{
+      max-width:var(--max-width);
+      margin:0 auto;
+      padding: calc(var(--page-padding) * 2) var(--page-padding) 80px;
     }
-    .main-poster {
-      text-align: center;
-      margin: 40px 0;
+
+    /* Hero */
+    .hero{
+      position:relative;
+      width:100%;
+      border-radius:12px;
+      overflow:hidden;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.6), inset 0 0 120px rgba(0,0,0,0.25);
+      background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.08));
     }
-    .main-poster img {
-      max-width: 90%;
-      height: auto;
-      box-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
+
+    /* Hero image */
+    .hero-img{
+      display:block;
+      width:100%;
+      height: min(75vh, 760px);
+      object-fit:cover;
+      object-position:center;
+      transform-origin:center;
+      filter: saturate(1.02) contrast(0.98);
+      -webkit-user-drag: none;
     }
-    section {
-      padding: 40px 20px;
-      border-top: 1px solid #333;
+
+    /* Overlay content on hero */
+    .hero-overlay{
+      position:absolute;
+      inset:0;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      align-items:flex-start;
+      padding:32px;
+      background: linear-gradient(180deg, rgba(0,0,0,0.0) 10%, rgba(0,0,0,0.50) 50%, rgba(0,0,0,0.85) 100%);
+      color:var(--muted);
+      z-index:20;
+      pointer-events: none; /* keep overlay non-interactive except CTA */
     }
-    h2 {
-      color: #ffcc00;
-      margin-bottom: 20px;
+
+    .title{
+      font-size: clamp(32px, 6vw, 96px);
+      line-height:0.9;
+      letter-spacing:2px;
+      color:var(--accent);
+      text-shadow: 0 6px 30px rgba(0,0,0,0.7);
+      margin-bottom:8px;
+      font-weight:800;
+      text-transform:uppercase;
+      margin-left:4px;
     }
-    .episodes iframe {
-      width: 100%;
-      max-width: 600px;
-      height: 340px;
-      margin: 20px auto;
-      display: block;
-      border: none;
-      box-shadow: 0 0 10px rgba(255,255,255,0.2);
+    .tagline{
+      margin-bottom:18px;
+      color:rgba(255,255,255,0.92);
+      font-size: clamp(14px, 2vw, 18px);
+      margin-left:4px;
     }
-    .gallery img {
-      width: 100%;
-      max-width: 300px;
-      margin: 10px;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(255,255,255,0.1);
+
+    /* CTA button - allow interaction */
+    .cta{
+      pointer-events: auto;
+      display:inline-block;
+      background: linear-gradient(90deg, #ffb34a 0%, #f5b233 100%);
+      color:#111;
+      padding:10px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:700;
+      box-shadow: 0 6px 18px rgba(245,178,51,0.22), inset 0 -2px 0 rgba(0,0,0,0.08);
+      margin-bottom:18px;
     }
-    .about {
-      max-width: 600px;
-      margin: auto;
-      font-size: 1.1em;
-      line-height: 1.6;
+
+    /* Content area */
+    .content{
+      margin-top:28px;
+      padding:28px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:12px;
+      color:var(--muted);
     }
-    footer {
-      text-align: center;
-      padding: 20px;
-      background-color: #111;
-      font-size: 0.9em;
-      color: #aaa;
+
+    .content h2{ margin-bottom:10px; color: var(--accent) }
+    .content p{ color: var(--muted-weak); margin-bottom:12px }
+
+    /* Footer */
+    .site-footer{
+      margin-top:20px;
+      text-align:center;
+      color:rgba(255,255,255,0.6);
+      font-size:14px;
+    }
+
+    /* Small screens */
+    @media (max-width:720px){
+      .logo-img{width:56px}
+      .hero-overlay{padding:18px}
+      .title{font-size: clamp(28px, 10vw, 48px)}
+      .page{padding:16px}
     }
   </style>
 </head>
 <body>
+  <!-- Top-left logo (Image 2) -->
+  <a class="logo-link" href="/" aria-label="THE BOX home">
+    <img src="assets/images/the-box-logo.jpg" alt="THE BOX logo" class="logo-img" width="120" height="120" loading="eager">
+  </a>
 
-  <header>
-    <img src="THE_BOX_LOGO.png" alt="THE BOX Logo" class="logo" />
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#episodes">Episodes</a>
-      <a href="#gallery">Gallery</a>
-      <a href="#about">About</a>
-    </nav>
-  </header>
+  <div class="page">
+    <!-- Hero with main front image (Image 1) -->
+    <header class="hero" role="banner" aria-label="Main poster for THE BOX">
+      <picture>
+        <!-- If you later add webp/avif variants, add <source> tags here -->
+        <img
+          src="assets/images/poster.jpg"
+          alt="Poster for THE BOX showing a glowing box and dim figures in the background"
+          class="hero-img"
+          loading="eager"
+          draggable="false"
+        />
+      </picture>
 
-  <div class="main-poster" id="home">
-    <img src="THE_BOX_POSTER.jpeg" alt="Main Poster" />
+      <div class="hero-overlay" aria-hidden="false">
+        <h1 class="title">THE BOX</h1>
+        <p class="tagline">Something strange is inside...</p>
+        <a class="cta" href="#about">Learn more</a>
+      </div>
+    </header>
+
+    <main id="about" class="content" role="main">
+      <h2>About the Story</h2>
+      <p>
+        A new mystery thriller. Dark, atmospheric, and full of questions — THE BOX invites
+        you to open it if you dare.
+      </p>
+
+      <h3>Trailer</h3>
+      <p>
+        Replace this area with an embedded trailer or additional assets. To embed a YouTube trailer,
+        paste an <code>&lt;iframe&gt;</code> here and set appropriate width/height and title for accessibility.
+      </p>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+      <p>&copy; <span id="year"></span> THE BOX. All rights reserved.</p>
+    </footer>
   </div>
 
-  <section class="episodes" id="episodes">
-    <h2>Episodes</h2>
-    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
-    <iframe src="https://www.youtube.com/embed/3GwjfUFyY6M" allowfullscreen></iframe>
-  </section>
-
-  <section class="gallery" id="gallery">
-    <h2>Gallery</h2>
-    <img src="https://picsum.photos/300/200?random=1" alt="Gallery Image 1" />
-    <img src="https://picsum.photos/300/200?random=2" alt="Gallery Image 2" />
-    <img src="https://picsum.photos/300/200?random=3" alt="Gallery Image 3" />
-  </section>
-
-  <section class="about" id="about">
-    <h2>About the Series</h2>
-    <p>
-      “THE BOX” is a gripping mystery thriller that explores the unknown. Each episode unravels secrets hidden inside a strange box that appeared out of nowhere. Follow the journey of discovery, suspense, and danger as characters confront their deepest fears.
-    </p>
-  </section>
-
-  <footer>
-    &copy; 2026 THE BOX Web Series. All rights reserved.
-  </footer>
-
   <script>
-    // Future enhancements: dynamic episode loading, theme toggles, etc.
-    console.log("Welcome to THE BOX website.");
+    // Set current year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
-
 </body>
 </html>
