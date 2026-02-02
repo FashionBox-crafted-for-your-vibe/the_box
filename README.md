@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>THE BOX — Official</title>
   <meta name="description" content="Official page for THE BOX — a mystery thriller." />
-
-  <!-- Open Graph (social preview) -->
   <meta property="og:title" content="THE BOX — Official" />
   <meta property="og:description" content="Something strange is inside..." />
   <meta property="og:image" content="assets/images/poster.jpg" />
@@ -14,209 +12,165 @@
 
   <style>
     :root{
-      --bg:#0b0b0b;
+      --bg:#070707;
       --accent:#f5b233;
-      --muted:rgba(255,255,255,0.85);
-      --muted-weak:rgba(255,255,255,0.6);
-      --max-width:1200px;
-      --page-padding:20px;
-      --logo-size:72px;
+      --muted:rgba(255,255,255,0.9);
+      --max-width:1400px;
+      --logo-size:64px;
     }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:var(--bg);color:#fff;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial}
+    a{color:inherit;text-decoration:none}
 
-    /* Basic reset */
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%}
-    body{
-      font-family: Inter, "Helvetica Neue", Arial, sans-serif;
-      background: linear-gradient(180deg,#070707 0%, #0f0f0f 100%);
-      color:#fff;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.4;
-      -webkit-text-size-adjust:100%;
-      -ms-text-size-adjust:100%;
-    }
-
-    /* Top-left logo */
-    .logo-link{
+    /* Logo */
+    .logo {
       position:fixed;
-      top:16px;
-      left:16px;
+      top:18px;
+      left:18px;
       z-index:60;
-      display:inline-block;
-      border-radius:8px;
-      overflow:hidden;
-      background:rgba(0,0,0,0.25);
+      display:flex;
+      align-items:center;
+      gap:10px;
       padding:6px;
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      transition: transform 150ms ease;
+      border-radius:14px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
     }
-    .logo-link:focus,
-    .logo-link:hover{ transform: translateY(-2px); outline: none; }
     .logo-img{
       display:block;
       width:var(--logo-size);
-      height:auto;
-      max-height:72px;
+      height:var(--logo-size);
       object-fit:contain;
-      filter: drop-shadow(0 6px 18px rgba(0,0,0,0.6));
-      background: transparent;
+      border-radius:8px;
+      background:transparent;
     }
 
-    /* Page wrapper */
-    .page{
-      max-width:var(--max-width);
-      margin:0 auto;
-      padding: calc(var(--page-padding) * 2) var(--page-padding) 80px;
-    }
-
-    /* Hero */
-    .hero{
-      position:relative;
+    /* Main hero */
+    .hero {
+      min-height:100vh;
       width:100%;
-      border-radius:12px;
+      display:grid;
+      place-items:center;
       overflow:hidden;
-      box-shadow: 0 40px 80px rgba(0,0,0,0.6), inset 0 0 120px rgba(0,0,0,0.25);
-      background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.08));
+      position:relative;
+    }
+    .hero-bg{
+      position:absolute;inset:0;
+      background-position:center;
+      background-size:cover;
+      background-repeat:no-repeat;
+      filter:brightness(.58) saturate(.98);
+      transform:scale(1.03);
     }
 
-    /* Hero image */
-    .hero-img{
-      display:block;
+    /* Subtle vignette */
+    .hero::after{
+      content:"";position:absolute;inset:0;
+      background: radial-gradient(60% 60% at 50% 40%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.28) 40%, rgba(0,0,0,0.7) 100%);
+      pointer-events:none;
+    }
+
+    /* Center content (minimal) */
+    .hero-content{
+      position:relative;z-index:30;
+      text-align:center;
+      max-width:1100px;
       width:100%;
-      height: min(75vh, 760px);
-      object-fit:cover;
-      object-position:center;
-      transform-origin:center;
-      filter: saturate(1.02) contrast(0.98);
-      -webkit-user-drag: none;
-    }
-
-    /* Overlay content on hero */
-    .hero-overlay{
-      position:absolute;
-      inset:0;
+      padding:28px;
       display:flex;
       flex-direction:column;
-      justify-content:flex-end;
-      align-items:flex-start;
-      padding:32px;
-      background: linear-gradient(180deg, rgba(0,0,0,0.0) 10%, rgba(0,0,0,0.50) 50%, rgba(0,0,0,0.85) 100%);
-      color:var(--muted);
-      z-index:20;
-      pointer-events: none; /* keep overlay non-interactive except CTA */
+      align-items:center;
+      gap:22px;
     }
 
-    .title{
-      font-size: clamp(32px, 6vw, 96px);
-      line-height:0.9;
-      letter-spacing:2px;
-      color:var(--accent);
-      text-shadow: 0 6px 30px rgba(0,0,0,0.7);
-      margin-bottom:8px;
-      font-weight:800;
-      text-transform:uppercase;
-      margin-left:4px;
-    }
-    .tagline{
-      margin-bottom:18px;
-      color:rgba(255,255,255,0.92);
-      font-size: clamp(14px, 2vw, 18px);
-      margin-left:4px;
-    }
-
-    /* CTA button - allow interaction */
-    .cta{
-      pointer-events: auto;
-      display:inline-block;
-      background: linear-gradient(90deg, #ffb34a 0%, #f5b233 100%);
-      color:#111;
-      padding:10px 18px;
-      border-radius:8px;
-      text-decoration:none;
-      font-weight:700;
-      box-shadow: 0 6px 18px rgba(245,178,51,0.22), inset 0 -2px 0 rgba(0,0,0,0.08);
-      margin-bottom:18px;
-    }
-
-    /* Content area */
-    .content{
-      margin-top:28px;
-      padding:28px;
+    /* Big translucent card for optional copy */
+    .card {
       background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:12px;
+      border-radius:14px;
+      padding:18px 22px;
       color:var(--muted);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.6);
     }
 
-    .content h2{ margin-bottom:10px; color: var(--accent) }
-    .content p{ color: var(--muted-weak); margin-bottom:12px }
+    /* Play CTA */
+    .play {
+      display:inline-flex;
+      align-items:center;
+      gap:12px;
+      background:rgba(255,255,255,0.06);
+      padding:12px 18px;
+      border-radius:999px;
+      color:var(--muted);
+      font-weight:600;
+      border:1px solid rgba(255,255,255,0.04);
+      transition: transform .16s ease, background .16s ease;
+    }
+    .play:hover{ transform:translateY(-4px); background:rgba(255,255,255,0.08) }
 
-    /* Footer */
-    .site-footer{
-      margin-top:20px;
-      text-align:center;
-      color:rgba(255,255,255,0.6);
-      font-size:14px;
+    .play .dot{
+      width:44px;height:44px;display:grid;place-items:center;
+      background:linear-gradient(90deg,#ffb34a,#f5b233);
+      border-radius:50%;
+      box-shadow: 0 8px 24px rgba(245,178,51,0.25);
+    }
+    .play .dot svg{ width:18px; height:18px; fill:#111; margin-left:3px }
+
+    /* Footer / small info */
+    footer.site-footer{
+      position:relative;z-index:30;margin-top:28px;color:rgba(255,255,255,0.65);font-size:13px;
     }
 
     /* Small screens */
     @media (max-width:720px){
-      .logo-img{width:56px}
-      .hero-overlay{padding:18px}
-      .title{font-size: clamp(28px, 10vw, 48px)}
-      .page{padding:16px}
+      :root{--logo-size:52px}
+      .card{padding:14px}
+      .play{padding:10px 14px}
+      .play .dot{width:40px;height:40px}
     }
   </style>
 </head>
 <body>
-  <!-- Top-left logo (Image 2) -->
-  <a class="logo-link" href="/" aria-label="THE BOX home">
-    <img src="assets/images/the-box-logo.jpg" alt="THE BOX logo" class="logo-img" width="120" height="120" loading="eager">
+  <!-- Logo (image only, no textual site title) -->
+  <a class="logo" href="/" aria-label="Home">
+    <img class="logo-img" src="assets/images/the-box-logo.png" alt="Site logo">
   </a>
 
-  <div class="page">
-    <!-- Hero with main front image (Image 1) -->
-    <header class="hero" role="banner" aria-label="Main poster for THE BOX">
-      <picture>
-        <!-- If you later add webp/avif variants, add <source> tags here -->
-        <img
-          src="assets/images/poster.jpg"
-          alt="Poster for THE BOX showing a glowing box and dim figures in the background"
-          class="hero-img"
-          loading="eager"
-          draggable="false"
-        />
-      </picture>
+  <main class="hero" role="main" aria-label="Main poster">
+    <!-- Background uses the main hero image from the repo -->
+    <div class="hero-bg" style="background-image: url('assets/images/poster.jpg');" role="img" aria-label="Main poster image"></div>
 
-      <div class="hero-overlay" aria-hidden="false">
-        <h1 class="title">THE BOX</h1>
-        <p class="tagline">Something strange is inside...</p>
-        <a class="cta" href="#about">Learn more</a>
+    <div class="hero-content">
+      <div class="card" aria-hidden="false">
+        <!-- Minimal copy: keep it short and atmospheric -->
+        <p style="margin:0;font-size:18px;color:rgba(255,255,255,0.92);letter-spacing:0.6px">
+          Something strange is inside...
+        </p>
       </div>
-    </header>
 
-    <main id="about" class="content" role="main">
-      <h2>About the Story</h2>
-      <p>
-        A new mystery thriller. Dark, atmospheric, and full of questions — THE BOX invites
-        you to open it if you dare.
-      </p>
+      <!-- Play CTA — link to trailer section or open modal (placeholder link) -->
+      <a class="play" href="#trailer" title="Watch Trailer" role="button">
+        <span class="dot" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true"><path d="M6 4l12 8-12 8z"/></svg>
+        </span>
+        <span style="font-size:15px">Watch Trailer</span>
+      </a>
 
-      <h3>Trailer</h3>
-      <p>
-        Replace this area with an embedded trailer or additional assets. To embed a YouTube trailer,
-        paste an <code>&lt;iframe&gt;</code> here and set appropriate width/height and title for accessibility.
-      </p>
-    </main>
+      <footer class="site-footer">
+        &copy; <span id="year"></span>. All rights reserved.
+      </footer>
+    </div>
+  </main>
 
-    <footer class="site-footer" role="contentinfo">
-      <p>&copy; <span id="year"></span> THE BOX. All rights reserved.</p>
-    </footer>
-  </div>
+  <!-- Hidden trailer anchor (replace with iframe if available) -->
+  <section id="trailer" style="display:none; padding:32px;">
+    <!-- Embed your trailer here -->
+  </section>
 
   <script>
-    // Set current year in footer
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
